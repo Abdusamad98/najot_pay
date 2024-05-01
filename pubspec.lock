@@ -25,6 +25,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  authentication_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/authentication_repository"
+      relative: true
+    source: path
+    version: "1.0.0"
   bloc:
     dependency: transitive
     description:
@@ -49,6 +56,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  cache:
+    dependency: transitive
+    description:
+      path: "packages/cache"
+      relative: true
+    source: path
+    version: "1.0.0"
   change_app_package_name:
     dependency: "direct main"
     description:

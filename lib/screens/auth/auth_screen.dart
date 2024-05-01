@@ -14,6 +14,9 @@ class _AuthScreenState extends State<AuthScreen> {
       appBar: AppBar(
         title: Text("Auth Screen"),
       ),
+      body: ListView(
+        children: [],
+      ),
     );
   }
 }

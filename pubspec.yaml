@@ -21,7 +21,6 @@ dependencies:
   equatable: ^2.0.5
   connectivity_plus: ^6.0.3
   change_app_package_name: ^1.1.0
-
   firebase_core: ^2.30.1
   firebase_messaging: ^14.9.1
   firebase_storage: ^11.7.4
@@ -36,7 +35,8 @@ dependencies:
 
   my_utils:
     path: packages/my_utils
-
+  authentication_repository:
+    path: packages/authentication_repository
 dev_dependencies:
   flutter_test:
     sdk: flutter

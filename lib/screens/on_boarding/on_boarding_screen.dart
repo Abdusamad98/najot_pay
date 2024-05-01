@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:najot_pay/data/local/storage_repository.dart';
+import 'package:najot_pay/screens/on_boarding/pages/boarding_page_four.dart';
 import 'package:najot_pay/screens/on_boarding/pages/boarding_page_one.dart';
 import 'package:najot_pay/screens/on_boarding/pages/boarding_page_three.dart';
 import 'package:najot_pay/screens/on_boarding/pages/boarding_page_two.dart';
@@ -27,16 +28,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               controller: controller,
               onPageChanged: (index) {},
               physics: const NeverScrollableScrollPhysics(),
-              children: [
+              children: const [
                 BoardingPageOne(),
                 BoardingPageTwo(),
                 BoardingPageThree(),
+                BoardingPageFour(),
               ],
             ),
           ),
           TextButton(
             onPressed: () {
-              if (activeIndex == 2) {
+              if (activeIndex == 3) {
                 StorageRepository.setBool(
                   key: "is_new_user",
                   value: true,
