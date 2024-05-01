@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -14,18 +16,14 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository})
       : super(
-          AuthState(
-            status: FormsStatus.pure,
-            errorMessage: "",
-            statusMessage: "",
-            userModel: UserModel.initial(),
-          ),
+          AuthState.init(),
         ) {
     on<CheckAuthenticationEvent>(_checkAuthentication);
     on<LoginUserEvent>(_loginUser);
     on<RegisterUserEvent>(_registerUser);
     on<LogOutUserEvent>(_logOutUser);
     on<SignInWithGoogleEvent>(_googleSignIn);
+    on<IsValidToInsert>(_isValidToInsert);
   }
 
   final AuthRepository authRepository;
@@ -64,7 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(status: FormsStatus.loading));
     NetworkResponse networkResponse =
         await authRepository.registerWithEmailAndPassword(
-      email: "${event.userModel.username}@gmail.com",
+      email: event.userModel.email,
       password: event.userModel.password,
     );
     if (networkResponse.errorText.isEmpty) {
@@ -108,7 +106,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       UserCredential userCredential = networkResponse.data;
       emit(
         state.copyWith(
-         // statusMessage: "registered",
+          // statusMessage: "registered",
           status: FormsStatus.authenticated,
           userModel: UserModel(
             password: "",
@@ -129,5 +127,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     }
+  }
+
+  _isValidToInsert(IsValidToInsert event, emit) {
+    emit(state.copyWith(status: FormsStatus.loading));
+    if (event.passwordController.isNotEmpty &&
+        event.gmailController.isNotEmpty &&
+        event.usernameController.isNotEmpty &&
+        event.lastnameController.isNotEmpty &&
+        event.confirmPasswordController.isNotEmpty) {
+      emit(state.copyWith(isValid: true,status: FormsStatus.error));
+      return;
+    }
+    emit(state.copyWith(
+        isError: true, errorMessage: "Maydonlarni to'liq kiriting"));
   }
 }

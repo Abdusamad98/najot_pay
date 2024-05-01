@@ -37,15 +37,40 @@ class RegisterUserEvent extends AuthEvent {
       ];
 }
 
-
 class LogOutUserEvent extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
 
+class IsValidToInsert extends AuthEvent {
+  final String passwordController;
+  final String usernameController;
+  final String gmailController;
+  final String lastnameController;
+  final String phoneController;
+  final String confirmPasswordController;
+
+  IsValidToInsert({
+    required this.passwordController,
+    required this.usernameController,
+    required this.gmailController,
+    required this.lastnameController,
+    required this.phoneController,
+    required this.confirmPasswordController,
+  });
+
+  @override
+  List<Object?> get props => [
+        passwordController,
+        usernameController,
+        gmailController,
+        lastnameController,
+        phoneController,
+        confirmPasswordController,
+      ];
+}
 
 class SignInWithGoogleEvent extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
-

@@ -25,10 +25,10 @@ class MyCustomButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12.h),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
           backgroundColor:
-              readyToSubmit ? AppColors.c_1A72DD : AppColors.c_C4C4C4,
+              readyToSubmit ? AppColors.c_1317DD : AppColors.c_C4C4C4,
         ),
         onPressed: readyToSubmit ? onTap : null,
         child: Center(

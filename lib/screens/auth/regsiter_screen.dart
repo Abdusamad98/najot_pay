@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:najot_pay/blocs/auth/auth_bloc.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/data/models/user_model.dart';
 import 'package:najot_pay/screens/auth/widgets/my_custom_button.dart';
+import 'package:najot_pay/screens/dialogs/unical_dialog.dart';
+import 'package:najot_pay/screens/routes.dart';
+import 'package:najot_pay/screens/widgets/auth_item.dart';
+import 'package:najot_pay/screens/widgets/text_container.dart';
+import 'package:najot_pay/utils/colors/app_colors.dart';
 import 'package:najot_pay/utils/constants/app_constants.dart';
+import 'package:najot_pay/utils/images/app_images.dart';
+import 'package:najot_pay/utils/styles/app_text_style.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,164 +25,152 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
+  final TextEditingController gmailController = TextEditingController();
   final TextEditingController lastnameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-
-  bool isValidLoginCredentials() {
-    return AppConstants.passwordRegExp.hasMatch(passwordController.text) &&
-        AppConstants.textRegExp.hasMatch(usernameController.text) &&
-        AppConstants.phoneRegExp.hasMatch(phoneController.text) &&
-        AppConstants.textRegExp.hasMatch(lastnameController.text);
-  }
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register Screen"),
-      ),
       body: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView(
-                    children: [
-                      TextFormField(
-                        controller: usernameController,
-                        onChanged: (v) {
-                          setState(() {});
-                        },
-                        validator: (v) {
-                          if (v != null &&
-                              AppConstants.textRegExp.hasMatch(v)) {
-                            return null;
-                          }
-                          return "Username error";
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: const InputDecoration(
-                            hintText: "USERNAME",
-                            errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 2,
-                            ))),
-                      ),
-                      SizedBox(height: 20.h),
-                      TextFormField(
-                        controller: passwordController,
-                        onChanged: (v) {
-                          setState(() {});
-                        },
-                        validator: (v) {
-                          if (v != null &&
-                              AppConstants.passwordRegExp.hasMatch(v)) {
-                            return null;
-                          }
-                          return "Password error";
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: const InputDecoration(
-                          hintText: "PASSWORD",
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 2,
-                            ),
-                          ),
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 22.h),
+                  Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppImages.loginImage,
+                          height: 180.h,
                         ),
-                      ),
-                      SizedBox(height: 20.h),
-                      TextFormField(
-                        controller: phoneController,
-                        onChanged: (v) {
-                          setState(() {});
-                        },
-                        validator: (v) {
-                          if (v != null &&
-                              AppConstants.phoneRegExp.hasMatch(v)) {
-                            return null;
-                          }
-                          return "Phone error";
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: const InputDecoration(
-                          hintText: "PHONE",
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 2,
-                            ),
-                          ),
+                        SizedBox(height: 30.h),
+                        Text(
+                          "Sign Up",
+                          style:
+                              AppTextStyle.interSemiBold.copyWith(fontSize: 22),
                         ),
-                      ),
-                      SizedBox(height: 20.h),
-                      TextFormField(
-                        controller: lastnameController,
-                        onChanged: (v) {
-                          setState(() {});
-                        },
-                        validator: (v) {
-                          if (v != null &&
-                              AppConstants.textRegExp.hasMatch(v)) {
-                            return null;
-                          }
-                          return "Lastname error";
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: const InputDecoration(
-                          hintText: "LASTNAME",
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 120.h),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 120.h),
-                MyCustomButton(
-                  onTap: () {
-                    context.read<AuthBloc>().add(
-                          RegisterUserEvent(
-                            userModel: UserModel(
-                              password: passwordController.text,
-                              email:
-                                  "${usernameController.text}@gmail.com".trim(),
-                              imageUrl: "",
-                              lastname: lastnameController.text,
-                              phoneNumber: phoneController.text.trim(),
-                              userId: "",
-                              username: usernameController.text,
-                            ),
-                          ),
-                        );
-                  },
-                  readyToSubmit: isValidLoginCredentials(),
-                  isLoading: state.status == FormsStatus.loading,
-                  title: "Register",
-                ),
-                SizedBox(height: 20.h),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
+                  TextFieldContainer(
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      child: SvgPicture.asset(AppImages.personIcon),
+                    ),
+                    hintText: "First Name",
+                    keyBoardType: TextInputType.emailAddress,
+                    controller: usernameController,
+                  ),
+                  TextFieldContainer(
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      child: SvgPicture.asset(AppImages.personIcon),
+                    ),
+                    hintText: "Last Name",
+                    keyBoardType: TextInputType.emailAddress,
+                    controller: lastnameController,
+                  ),
+                  TextFieldContainer(
+                    regExp: AppConstants.emailRegExp,
+                    errorText: "Email format not supported",
+                    prefixIcon: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 6.w),
+                      child: SvgPicture.asset(AppImages.emailIcon),
+                    ),
+                    hintText: "Email",
+                    keyBoardType: TextInputType.emailAddress,
+                    controller: gmailController,
+                  ),
+                  TextFieldContainer(
+                    regExp: AppConstants.passwordRegExp,
+                    errorText:
+                        "Parolda 8 belgidan va 1 katta harfdan iborat bo'lishi kerak !",
+                    isObscureText: true,
+                    prefixIcon: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                      child: SvgPicture.asset(AppImages.lockIcon),
+                    ),
+                    hintText: "Password",
+                    keyBoardType: TextInputType.emailAddress,
+                    controller: passwordController,
+                  ),
+                  TextFieldContainer(
+                    regExp: AppConstants.passwordRegExp,
+                    errorText:
+                        "Parolda 8 belgidan va 1 katta harfdan iborat bo'lishi kerak !",
+                    isObscureText: true,
+                    prefixIcon: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                      child: SvgPicture.asset(AppImages.lockIcon),
+                    ),
+                    hintText: "Confirm Password",
+                    keyBoardType: TextInputType.emailAddress,
+                    controller: confirmPasswordController,
+                  ),
+                  SizedBox(height: 22.h),
+                  MyCustomButton(
+                    onTap: () {
+                      context.read<AuthBloc>().add(IsValidToInsert(
+                            passwordController: passwordController.text,
+                            usernameController: usernameController.text,
+                            gmailController: gmailController.text,
+                            lastnameController: lastnameController.text,
+                            phoneController: phoneController.text,
+                            confirmPasswordController:
+                                confirmPasswordController.text,
+                          ));
+                      if (passwordController.text ==
+                          confirmPasswordController.text) {
+                        context.read<AuthBloc>().add(
+                              RegisterUserEvent(
+                                userModel: UserModel(
+                                  password: passwordController.text,
+                                  email: gmailController.text,
+                                  imageUrl: "",
+                                  lastname: lastnameController.text,
+                                  phoneNumber: phoneController.text.trim(),
+                                  userId: "",
+                                  username: usernameController.text,
+                                ),
+                              ),
+                            );
+                      } else {
+                        showUnicalDialog(errorMessage: "Parrolar mos emas");
+                        return;
+                      }
                     },
-                    child: const Text("Login"))
-              ],
+                    readyToSubmit: true,
+                    isLoading: state.status == FormsStatus.loading,
+                    title: "Register",
+                  ),
+                  SizedBox(height: 20.h),
+                  const AuthItem(
+                    title: "Already have an account?",
+                    subtitle: "Login",
+                    routeName: RouteNames.authRoute,
+                    color: AppColors.black,
+                    subColor: AppColors.c_1317DD,
+                  )
+                ],
+              ),
             ),
           );
         },
         listener: (context, state) {
           if (state.status == FormsStatus.error) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+            showUnicalDialog(errorMessage: state.errorMessage);
+          }
+          if (state.isError) {
+            showUnicalDialog(errorMessage: state.errorMessage);
           }
         },
       ),
