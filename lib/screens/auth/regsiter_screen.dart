@@ -151,6 +151,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     readyToSubmit: true,
                     isLoading: state.status == FormsStatus.loading,
                     title: "Register",
+                    color: AppColors.c_1317DD,
+                    subColor: AppColors.c_C4C4C4,
                   ),
                   SizedBox(height: 20.h),
                   const AuthItem(
@@ -172,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state.isError) {
             showUnicalDialog(errorMessage: state.errorMessage);
           }
-          if(state.status == FormsStatus.authenticated){
+          if (state.status == FormsStatus.authenticated) {
             Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
           }
         },

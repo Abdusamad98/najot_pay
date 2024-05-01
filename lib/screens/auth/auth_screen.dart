@@ -92,7 +92,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                     readyToSubmit: isValidLoginCredentials(),
                     isLoading: state.status == FormsStatus.loading,
-                    title: "Login",
+                    title: "Login", color: AppColors.white,subColor: AppColors.c_C4C4C4,
                   ),
                   SizedBox(height: 16.h),
                   Center(

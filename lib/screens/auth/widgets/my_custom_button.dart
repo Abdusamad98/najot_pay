@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_utils/my_utils.dart';
-import 'package:najot_pay/utils/colors/app_colors.dart';
 
 import '../../../utils/styles/app_text_style.dart';
 
@@ -10,13 +9,15 @@ class MyCustomButton extends StatelessWidget {
     required this.onTap,
      this.readyToSubmit = true,
      this.isLoading = false,
-    required this.title,
+    required this.title, required this.color, required this.subColor,
   });
 
   final VoidCallback onTap;
   final bool readyToSubmit;
   final bool isLoading;
   final String title;
+  final Color color;
+  final Color subColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class MyCustomButton extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
           backgroundColor:
-              readyToSubmit ? AppColors.c_1317DD : AppColors.c_C4C4C4,
+              readyToSubmit ? color : subColor,
         ),
         onPressed: readyToSubmit ? onTap : null,
         child: Center(
