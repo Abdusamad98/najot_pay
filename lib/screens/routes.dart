@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:najot_pay/screens/auth/auth_screen.dart';
+import 'package:najot_pay/screens/auth/regsiter_screen.dart';
 import 'package:najot_pay/screens/no_internet/no_internet_screen.dart';
 import 'package:najot_pay/screens/on_boarding/on_boarding_screen.dart';
 import 'package:najot_pay/screens/payment/payment_screen.dart';
@@ -28,6 +29,8 @@ class AppRoutes {
         return navigate(const AuthScreen());
       case RouteNames.onBoardingRoute:
         return navigate(const OnBoardingScreen());
+      case RouteNames.registerRoute:
+        return navigate(const RegisterScreen());
 
       default:
         return navigate(
@@ -53,4 +56,5 @@ class RouteNames {
   static const String paymentRoute = "/payment_route";
   static const String transferRoute = "/transfer_route";
   static const String onBoardingRoute = "/on_boarding_route";
+  static const String registerRoute = "/register_route";
 }

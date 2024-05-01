@@ -35,8 +35,7 @@ dependencies:
 
   my_utils:
     path: packages/my_utils
-  authentication_repository:
-    path: packages/authentication_repository
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

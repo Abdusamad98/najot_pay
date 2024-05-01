@@ -1,7 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_utils/my_utils.dart';
+import 'package:najot_pay/blocs/auth/auth_bloc.dart';
 import 'package:najot_pay/data/local/storage_repository.dart';
+import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/screens/routes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,14 +14,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  _init() async {
-    await Future.delayed(
-      const Duration(seconds: 2),
-    );
+  _init(bool isAuthenticated) async {
+    await Future.delayed(const Duration(seconds: 2));
+
     if (!mounted) return;
 
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
+    if (isAuthenticated == false) {
       bool isNewUser = StorageRepository.getBool(key: "is_new_user");
       if (isNewUser) {
         Navigator.pushReplacementNamed(context, RouteNames.authRoute);
@@ -32,23 +32,25 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  void initState() {
-    _init();
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
-    return const Scaffold(
-      body: Center(
-        child: Icon(
-          Icons.access_time_filled_outlined,
-          color: Colors.green,
-          size: 200,
+    return Scaffold(
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state.status == FormsStatus.authenticated) {
+            _init(true);
+          } else {
+            _init(false);
+          }
+        },
+        child: const Center(
+          child: Icon(
+            Icons.food_bank,
+            color: Colors.green,
+            size: 200,
+          ),
         ),
       ),
     );
