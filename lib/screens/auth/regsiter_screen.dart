@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 22.h),
+                  SizedBox(height: 36.h),
                   Center(
                     child: Column(
                       children: [
@@ -64,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: SvgPicture.asset(AppImages.personIcon),
                     ),
                     hintText: "First Name",
-                    keyBoardType: TextInputType.emailAddress,
+                    keyBoardType: TextInputType.text,
                     controller: usernameController,
                   ),
                   TextFieldContainer(
@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: SvgPicture.asset(AppImages.personIcon),
                     ),
                     hintText: "Last Name",
-                    keyBoardType: TextInputType.emailAddress,
+                    keyBoardType: TextInputType.text,
                     controller: lastnameController,
                   ),
                   TextFieldContainer(
@@ -99,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: SvgPicture.asset(AppImages.lockIcon),
                     ),
                     hintText: "Password",
-                    keyBoardType: TextInputType.emailAddress,
+                    keyBoardType: TextInputType.text,
                     controller: passwordController,
                   ),
                   TextFieldContainer(
@@ -113,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: SvgPicture.asset(AppImages.lockIcon),
                     ),
                     hintText: "Confirm Password",
-                    keyBoardType: TextInputType.emailAddress,
+                    keyBoardType: TextInputType.text,
                     controller: confirmPasswordController,
                   ),
                   SizedBox(height: 22.h),
@@ -171,6 +171,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           }
           if (state.isError) {
             showUnicalDialog(errorMessage: state.errorMessage);
+          }
+          if(state.status == FormsStatus.authenticated){
+            Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
           }
         },
       ),

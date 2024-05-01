@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:najot_pay/blocs/auth/auth_bloc.dart';
+import 'package:najot_pay/blocs/bottom/bottom_bloc.dart';
 import 'package:najot_pay/data/repositories/auth_repository.dart';
 import 'package:najot_pay/screens/routes.dart';
 import 'package:najot_pay/services/local_notification_service.dart';
@@ -27,6 +28,7 @@ class App extends StatelessWidget {
               authRepository: context.read<AuthRepository>(),
             )..add(CheckAuthenticationEvent()),
           ),
+          BlocProvider(create: (_)=> BottomBloc())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

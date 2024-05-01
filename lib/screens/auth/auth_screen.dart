@@ -5,6 +5,7 @@ import 'package:my_utils/my_utils.dart';
 import 'package:najot_pay/blocs/auth/auth_bloc.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/screens/auth/widgets/my_custom_button.dart';
+import 'package:najot_pay/screens/dialogs/unical_dialog.dart';
 import 'package:najot_pay/screens/routes.dart';
 import 'package:najot_pay/screens/widgets/auth_item.dart';
 import 'package:najot_pay/screens/widgets/text_container.dart';
@@ -26,7 +27,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   bool isValidLoginCredentials() =>
       AppConstants.passwordRegExp.hasMatch(passwordController.text) &&
-      AppConstants.textRegExp.hasMatch(usernameController.text);
+      AppConstants.emailRegExp.hasMatch(usernameController.text);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 22.h),
+                  SizedBox(height: 56.h),
                   Center(
                     child: Column(
                       children: [
@@ -64,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       child: SvgPicture.asset(AppImages.personIcon),
                     ),
-                    hintText: "Last Name",
+                    hintText: "Email",
                     keyBoardType: TextInputType.emailAddress,
                     controller: usernameController,
                   ),
@@ -79,7 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     hintText: "Password",
                     keyBoardType: TextInputType.text,
-                    controller: usernameController,
+                    controller: passwordController,
                   ),
                   SizedBox(height: 55.h),
                   MyCustomButton(
@@ -124,7 +125,13 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   SizedBox(height: 20.h),
-                  const AuthItem(title: "Don’t have an account?", subtitle: "Register now", routeName: RouteNames.registerRoute, color: Colors.grey,subColor: AppColors.white,)
+                  const AuthItem(
+                    title: "Don’t have an account?",
+                    subtitle: "Register now",
+                    routeName: RouteNames.registerRoute,
+                    color: Colors.grey,
+                    subColor: AppColors.white,
+                  )
                 ],
               ),
             ),
@@ -132,8 +139,7 @@ class _AuthScreenState extends State<AuthScreen> {
         },
         listener: (context, state) {
           if (state.status == FormsStatus.error) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+            showUnicalDialog(errorMessage: state.errorMessage);
           }
           if (state.status == FormsStatus.authenticated) {
             if (state.statusMessage == "registered") {
