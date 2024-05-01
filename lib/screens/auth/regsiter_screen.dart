@@ -144,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             );
                       } else {
-                        showUnicalDialog(errorMessage: "Parrolar mos emas");
+                        showUniqueDialog(errorMessage: "Parrolar mos emas");
                         return;
                       }
                     },
@@ -169,10 +169,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
         listener: (context, state) {
           if (state.status == FormsStatus.error) {
-            showUnicalDialog(errorMessage: state.errorMessage);
+            showUniqueDialog(errorMessage: state.errorMessage);
           }
           if (state.isError) {
-            showUnicalDialog(errorMessage: state.errorMessage);
+            showUniqueDialog(errorMessage: state.errorMessage);
           }
           if (state.status == FormsStatus.authenticated) {
             Navigator.pushReplacementNamed(context, RouteNames.tabRoute);

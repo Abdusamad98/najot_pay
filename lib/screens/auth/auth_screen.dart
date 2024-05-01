@@ -139,7 +139,7 @@ class _AuthScreenState extends State<AuthScreen> {
         },
         listener: (context, state) {
           if (state.status == FormsStatus.error) {
-            showUnicalDialog(errorMessage: state.errorMessage);
+            showUniqueDialog(errorMessage: state.errorMessage);
           }
           if (state.status == FormsStatus.authenticated) {
             if (state.statusMessage == "registered") {
