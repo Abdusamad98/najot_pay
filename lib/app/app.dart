@@ -24,29 +24,30 @@ class App extends StatelessWidget {
         ),
       ],
       child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => AuthBloc(
-                authRepository: context.read<AuthRepository>(),
-              )..add(CheckAuthenticationEvent()),
-            ),
-            BlocProvider(create: (_) => BottomBloc())
-          ],
-          child: AdaptiveTheme(
-            light: AppTheme.lightTheme,
-            dark: AppTheme.darkTheme,
-            initial: AdaptiveThemeMode.light,
-            builder: (theme, darkTheme) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: theme,
-                darkTheme: darkTheme,
-                initialRoute: RouteNames.splashScreen,
-                navigatorKey: navigatorKey,
-                onGenerateRoute: AppRoutes.generateRoute,
-              );
-            },
-          )),
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+            )..add(CheckAuthenticationEvent()),
+          ),
+          BlocProvider(create: (_) => BottomBloc())
+        ],
+        child: AdaptiveTheme(
+          light: AppTheme.lightTheme,
+          dark: AppTheme.darkTheme,
+          initial: AdaptiveThemeMode.light,
+          builder: (theme, darkTheme) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: theme,
+              darkTheme: darkTheme,
+              initialRoute: RouteNames.splashScreen,
+              navigatorKey: navigatorKey,
+              onGenerateRoute: AppRoutes.generateRoute,
+            );
+          },
+        ),
+      ),
     );
   }
 }
