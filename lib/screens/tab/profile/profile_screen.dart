@@ -14,6 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  //TODO-2 UserProfileBloc ichidagi userni get qilishni bu yerdan olib tashlaymiz.
 
   @override
   Widget build(BuildContext context) {

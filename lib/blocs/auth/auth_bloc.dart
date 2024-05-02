@@ -61,6 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     if (networkResponse.errorText.isEmpty) {
       debugPrint("REGISTERED USER!!!");
+      //TODO-1 userModel dagi authUid ga userCredential dan kelgan uid ni berib stateni yanglash kk.
       UserCredential userCredential = networkResponse.data as UserCredential;
       UserModel userModel = event.userModel.copyWith(
         authUid: userCredential.user!.uid,

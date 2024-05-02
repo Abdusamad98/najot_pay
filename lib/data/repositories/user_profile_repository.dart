@@ -83,6 +83,8 @@ class UserProfileRepository {
 
   Future<NetworkResponse> getUserByUid(String uid) async {
     try {
+
+      //TODO-3 Get User by UID
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.users)
           .where("authUid", isEqualTo: uid)
