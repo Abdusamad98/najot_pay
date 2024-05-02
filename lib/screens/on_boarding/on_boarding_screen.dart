@@ -5,6 +5,7 @@ import 'package:najot_pay/screens/on_boarding/pages/boarding_page_one.dart';
 import 'package:najot_pay/screens/on_boarding/pages/boarding_page_three.dart';
 import 'package:najot_pay/screens/on_boarding/pages/boarding_page_two.dart';
 import 'package:najot_pay/screens/routes.dart';
+import 'package:najot_pay/screens/widgets/my_custom_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -36,8 +37,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ],
             ),
           ),
-          TextButton(
-            onPressed: () {
+          MyCustomButton(
+            title: "Next",
+            onTap: () {
               if (activeIndex == 3) {
                 StorageRepository.setBool(
                   key: "is_new_user",
@@ -57,7 +59,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 );
               }
             },
-            child: Text("Next"),
           )
         ],
       ),

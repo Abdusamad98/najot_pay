@@ -38,6 +38,7 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 24.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
           boxShadow: [
@@ -67,7 +68,7 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          contentPadding: EdgeInsets.symmetric(vertical: 5.h),
+          contentPadding: EdgeInsets.symmetric(vertical: 10.h),
           hintText: widget.hintText,
           prefixIcon: widget.prefixIcon,
           suffixIcon: widget.isObscureText
@@ -85,19 +86,19 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
           border: InputBorder.none,
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 1.w, color: Colors.red),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: AppColors.transparent),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: AppColors.transparent),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 1.w, color: Colors.red),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
         style: const TextStyle(
