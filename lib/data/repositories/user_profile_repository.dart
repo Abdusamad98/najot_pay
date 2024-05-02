@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:najot_pay/data/models/network_response.dart';
 import 'package:najot_pay/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,6 +34,7 @@ class UserProfileRepository {
 
       return NetworkResponse(data: "success");
     } on FirebaseException catch (error) {
+      debugPrint("USER ADD ERROR:$error");
       return NetworkResponse(errorCode: error.code);
     }
   }
@@ -80,11 +82,14 @@ class UserProfileRepository {
     }
   }
 
-  Future<NetworkResponse> getUserByUid() async {
+  Future<NetworkResponse> getUserByUid(String uid) async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.users)
-          .where("authUid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where(
+            "authUid",
+            isEqualTo: uid,
+          )
           .get();
 
       List<UserModel> users = querySnapshot.docs

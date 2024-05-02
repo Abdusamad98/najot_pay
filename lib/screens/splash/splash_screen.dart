@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:najot_pay/blocs/auth/auth_bloc.dart';
+import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/local/storage_repository.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/screens/routes.dart';
@@ -40,6 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == FormsStatus.authenticated) {
+            BlocProvider.of<UserProfileBloc>(context).add(GetCurrentUserEvent(FirebaseAuth.instance.currentUser!.uid));
             _init(true);
           } else {
             _init(false);

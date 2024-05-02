@@ -39,6 +39,8 @@ class GetUserByDocIdEvent extends UserProfileEvent {
 }
 
 class GetCurrentUserEvent extends UserProfileEvent {
+  final String uid;
+  GetCurrentUserEvent(this.uid);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [uid];
 }

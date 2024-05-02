@@ -121,7 +121,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   _getUser(GetCurrentUserEvent event, emit) async {
     emit(state.copyWith(status: FormsStatus.loading));
     NetworkResponse networkResponse =
-        await userProfileRepository.getUserByUid();
+        await userProfileRepository.getUserByUid(event.uid);
 
     if (networkResponse.errorCode.isEmpty) {
       emit(

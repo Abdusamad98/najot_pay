@@ -14,12 +14,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  void initState() {
-    Future.microtask(() =>
-        BlocProvider.of<UserProfileBloc>(context).add(GetCurrentUserEvent()));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
