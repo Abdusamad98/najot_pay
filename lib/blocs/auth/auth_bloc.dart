@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -63,9 +61,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     if (networkResponse.errorText.isEmpty) {
       debugPrint("REGISTERED USER!!!");
-
       UserCredential userCredential = networkResponse.data as UserCredential;
-      UserModel userModel = state.userModel.copyWith(
+      UserModel userModel = event.userModel.copyWith(
         authUid: userCredential.user!.uid,
       );
       emit(

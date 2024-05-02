@@ -23,12 +23,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordController1 = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController lastnameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController passwordController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   hintText: "Password",
                   keyBoardType: TextInputType.text,
-                  controller: passwordController,
+                  controller: passwordController1,
                 ),
                 TextFieldContainer(
                   regExp: AppConstants.passwordRegExp,
@@ -108,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   hintText: "Confirm Password",
                   keyBoardType: TextInputType.text,
-                  controller: confirmPasswordController,
+                  controller: passwordController2,
                 ),
                 SizedBox(height: 22.h),
                 MyCustomButton(
@@ -117,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       context.read<AuthBloc>().add(
                             RegisterUserEvent(
                               userModel: UserModel(
-                                password: passwordController.text,
+                                password: passwordController1.text,
                                 email:
                                     "${usernameController.text.toLowerCase()}@gmail.com",
                                 imageUrl: "",
@@ -142,11 +141,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   subColor: AppColors.c_C4C4C4,
                 ),
                 SizedBox(height: 20.h),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("Login"))
+                AuthItem(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  title: "",
+                  subtitle: "Login now",
+                  color: AppColors.c_1317DD,
+                  subColor: AppColors.c_1317DD,
+                ),
               ],
             ),
           );
@@ -156,15 +159,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool isValidRegisterCredentials() =>
-      AppConstants.passwordRegExp.hasMatch(passwordController.text) &&
+      AppConstants.passwordRegExp.hasMatch(passwordController1.text) &&
       AppConstants.textRegExp.hasMatch(usernameController.text) &&
       AppConstants.textRegExp.hasMatch(lastnameController.text) &&
       AppConstants.phoneRegExp.hasMatch(phoneController.text) &&
-      (passwordController.text == confirmPasswordController.text);
+      (passwordController1.text == passwordController2.text);
 
   @override
   void dispose() {
-    passwordController.dispose();
+    passwordController1.dispose();
     usernameController.dispose();
     phoneController.dispose();
     lastnameController.dispose();

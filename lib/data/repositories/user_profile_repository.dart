@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:najot_pay/data/models/network_response.dart';
 import 'package:najot_pay/data/models/user_model.dart';
@@ -86,10 +85,7 @@ class UserProfileRepository {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.users)
-          .where(
-            "authUid",
-            isEqualTo: uid,
-          )
+          .where("authUid", isEqualTo: uid)
           .get();
 
       List<UserModel> users = querySnapshot.docs

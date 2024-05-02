@@ -6,7 +6,6 @@ import 'package:najot_pay/blocs/auth/auth_bloc.dart';
 import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/screens/widgets/my_custom_button.dart';
-import 'package:najot_pay/screens/dialogs/unical_dialog.dart';
 import 'package:najot_pay/screens/routes.dart';
 import 'package:najot_pay/screens/auth/widgets/auth_item.dart';
 import 'package:najot_pay/screens/widgets/text_container.dart';
@@ -69,6 +68,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           SizedBox(height: 16.h),
                           TextFieldContainer(
+                            onChanged: (v) {
+                              setState(() {});
+                            },
                             regExp: AppConstants.textRegExp,
                             errorText: "Username not supported",
                             prefixIcon: Padding(
@@ -80,6 +82,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             controller: usernameController,
                           ),
                           TextFieldContainer(
+                            onChanged: (v) {
+                              setState(() {});
+                            },
                             isObscureText: true,
                             regExp: AppConstants.passwordRegExp,
                             errorText:
@@ -148,10 +153,12 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   SizedBox(height: 10.h),
-                  const AuthItem(
+                  AuthItem(
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteNames.registerRoute);
+                    },
                     title: "Don’t have an account?",
                     subtitle: "Register now",
-                    routeName: RouteNames.registerRoute,
                     color: Colors.grey,
                     subColor: AppColors.white,
                   ),
@@ -161,10 +168,6 @@ class _AuthScreenState extends State<AuthScreen> {
             );
           },
           listener: (context, state) {
-
-            debugPrint("STATUS:${state.status}");
-
-
             if (state.status == FormsStatus.error) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text(state.errorMessage)));

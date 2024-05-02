@@ -13,6 +13,7 @@ class TextFieldContainer extends StatefulWidget {
   final bool isObscureText;
   final FocusNode? focusNode;
   final Widget? prefixIcon;
+  final ValueChanged<String>? onChanged;
 
   const TextFieldContainer({
     super.key,
@@ -25,6 +26,7 @@ class TextFieldContainer extends StatefulWidget {
     this.regExp,
     this.prefixIcon,
     this.errorText = '',
+    this.onChanged,
   });
 
   @override
@@ -39,17 +41,15 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.h),
       padding: EdgeInsets.symmetric(horizontal: 24.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: const Offset(0, 10),
-          ),
-        ]
-      ),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(15), boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          spreadRadius: 0,
+          blurRadius: 10,
+          offset: const Offset(0, 10),
+        ),
+      ]),
       // padding: EdgeInsets.symmetric(vertical: 5.w),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -63,6 +63,7 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
               }
             : null,
         obscureText: obscure,
+        onChanged: widget.onChanged,
         focusNode: widget.focusNode,
         controller: widget.controller,
         decoration: InputDecoration(
