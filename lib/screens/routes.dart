@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:najot_pay/screens/auth/auth_screen.dart';
 import 'package:najot_pay/screens/auth/regsiter_screen.dart';
+import 'package:najot_pay/screens/local_auth/method_one/confirm_pin_screen.dart';
+import 'package:najot_pay/screens/local_auth/method_one/entry_pin_screen.dart';
+import 'package:najot_pay/screens/local_auth/method_one/set_pin_screen.dart';
+import 'package:najot_pay/screens/local_auth/method_two/touch_id_screen.dart';
 import 'package:najot_pay/screens/no_internet/no_internet_screen.dart';
 import 'package:najot_pay/screens/on_boarding/on_boarding_screen.dart';
 import 'package:najot_pay/screens/payment/payment_screen.dart';
@@ -31,7 +35,14 @@ class AppRoutes {
         return navigate(const OnBoardingScreen());
       case RouteNames.registerRoute:
         return navigate(const RegisterScreen());
-
+      case RouteNames.setPinRoute:
+        return navigate(const SetPinScreen());
+      case RouteNames.confirmPinRoute:
+        return navigate(const ConfirmPinScreen());
+      case RouteNames.entryPinRoute:
+        return navigate(const EntryPinScreen());
+      case RouteNames.touchIdRoute:
+        return navigate(const TouchIdScreen());
       default:
         return navigate(
           const Scaffold(
@@ -57,4 +68,8 @@ class RouteNames {
   static const String transferRoute = "/transfer_route";
   static const String onBoardingRoute = "/on_boarding_route";
   static const String registerRoute = "/register_route";
+  static const String setPinRoute = "/setPinRoute";
+  static const String confirmPinRoute = "/confirmPinRoute";
+  static const String entryPinRoute = "/entryPinRoute";
+  static const String touchIdRoute = "/touchIdRoute";
 }

@@ -25,19 +25,15 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
-  final TextEditingController gmailController = TextEditingController();
   final TextEditingController lastnameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-
-
-
-
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<AuthBloc, AuthState>(
+      body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return SingleChildScrollView(
             child: Column(
@@ -78,16 +74,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: lastnameController,
                 ),
                 TextFieldContainer(
-                  regExp: AppConstants.emailRegExp,
-                  errorText: "Email format not supported",
                   prefixIcon: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 6.w),
-                    child: SvgPicture.asset(AppImages.emailIcon),
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: SvgPicture.asset(AppImages.personIcon),
                   ),
-                  hintText: "Email",
-                  keyBoardType: TextInputType.emailAddress,
-                  controller: gmailController,
+                  hintText: "Phone",
+                  keyBoardType: TextInputType.phone,
+                  controller: phoneController,
                 ),
                 TextFieldContainer(
                   regExp: AppConstants.passwordRegExp,
@@ -120,26 +113,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(height: 22.h),
                 MyCustomButton(
                   onTap: () {
-                    context.read<AuthBloc>().add(IsValidToInsert(
-                          passwordController: passwordController.text,
-                          usernameController: usernameController.text,
-                          gmailController: gmailController.text,
-                          lastnameController: lastnameController.text,
-                          phoneController: phoneController.text,
-                          confirmPasswordController:
-                              confirmPasswordController.text,
-                        ));
-                    if (passwordController.text == confirmPasswordController.text) {
+                    if (isValidRegisterCredentials()) {
                       context.read<AuthBloc>().add(
                             RegisterUserEvent(
                               userModel: UserModel(
                                 password: passwordController.text,
-                                email: gmailController.text,
+                                email:
+                                    "${usernameController.text.toLowerCase()}@gmail.com",
                                 imageUrl: "",
                                 lastname: lastnameController.text,
                                 phoneNumber: phoneController.text.trim(),
                                 userId: "",
                                 username: usernameController.text,
+                                fcm: "",
+                                authUid: "",
                               ),
                             ),
                           );
@@ -155,31 +142,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   subColor: AppColors.c_C4C4C4,
                 ),
                 SizedBox(height: 20.h),
-                const AuthItem(
-                  title: "Already have an account?",
-                  subtitle: "Login",
-                  routeName: RouteNames.authRoute,
-                  color: AppColors.black,
-                  subColor: AppColors.c_1317DD,
-                )
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Login"))
               ],
             ),
           );
         },
-        listener: (context, state) {
-          if (state.status == FormsStatus.error) {
-            showUniqueDialog(errorMessage: state.errorMessage);
-          }
-          if (state.isError) {
-            showUniqueDialog(errorMessage: state.errorMessage);
-          }
-          if (state.status == FormsStatus.authenticated) {
-            Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
-          }
-        },
       ),
     );
   }
+
+  bool isValidRegisterCredentials() =>
+      AppConstants.passwordRegExp.hasMatch(passwordController.text) &&
+      AppConstants.textRegExp.hasMatch(usernameController.text) &&
+      AppConstants.textRegExp.hasMatch(lastnameController.text) &&
+      AppConstants.phoneRegExp.hasMatch(phoneController.text) &&
+      (passwordController.text == confirmPasswordController.text);
 
   @override
   void dispose() {

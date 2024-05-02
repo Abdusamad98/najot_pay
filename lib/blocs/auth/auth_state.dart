@@ -5,16 +5,12 @@ class AuthState extends Equatable {
   final String statusMessage;
   final FormsStatus status;
   final UserModel userModel;
-  final bool isValid;
-  final bool isError;
 
   const AuthState({
     required this.status,
     required this.errorMessage,
     required this.statusMessage,
     required this.userModel,
-    required this.isValid,
-    required this.isError,
   });
 
   AuthState copyWith({
@@ -22,16 +18,12 @@ class AuthState extends Equatable {
     String? statusMessage,
     FormsStatus? status,
     UserModel? userModel,
-    bool? isValid,
-    bool? isError,
   }) {
     return AuthState(
       status: status ?? this.status,
       statusMessage: statusMessage ?? this.statusMessage,
       errorMessage: errorMessage ?? this.errorMessage,
       userModel: userModel ?? this.userModel,
-      isValid: isValid ?? this.isValid,
-      isError: isError ?? this.isError,
     );
   }
 
@@ -41,8 +33,6 @@ class AuthState extends Equatable {
       statusMessage: '',
       errorMessage: '',
       userModel: UserModel.initial(),
-      isValid: false,
-      isError: false,
     );
   }
 
@@ -52,7 +42,5 @@ class AuthState extends Equatable {
         statusMessage,
         errorMessage,
         userModel,
-        isValid,
-        isError,
       ];
 }

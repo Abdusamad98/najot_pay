@@ -38,6 +38,7 @@ class _TabScreenState extends State<TabScreen> {
           return BottomNavigationBar(
             selectedItemColor: Colors.black,
             currentIndex: state.index,
+            type: BottomNavigationBarType.fixed,
             onTap: (index) {
               context.read<BottomBloc>().add(ChangeIndexEvent(index: index));
             },

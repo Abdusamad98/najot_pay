@@ -29,7 +29,7 @@ class AuthItem extends StatelessWidget {
         SizedBox(width: 5.w),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushReplacementNamed(routeName);
+            Navigator.of(context).pushNamed(routeName);
           },
           child: Text(
             subtitle,

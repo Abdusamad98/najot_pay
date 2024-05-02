@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:najot_pay/blocs/auth/auth_bloc.dart';
+import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/screens/widgets/my_custom_button.dart';
 import 'package:najot_pay/screens/dialogs/unical_dialog.dart';
@@ -160,16 +161,25 @@ class _AuthScreenState extends State<AuthScreen> {
             );
           },
           listener: (context, state) {
+
+            debugPrint("STATUS:${state.status}");
+
+
             if (state.status == FormsStatus.error) {
-              showUniqueDialog(errorMessage: state.errorMessage);
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.errorMessage)));
             }
             if (state.status == FormsStatus.authenticated) {
               if (state.statusMessage == "registered") {
-                // state.userModel
-                //TODO User ma'lumotlarini saqlansin
+                BlocProvider.of<UserProfileBloc>(context).add(
+                  AddUserEvent(state.userModel),
+                );
               }
               Navigator.pushNamedAndRemoveUntil(
-                  context, RouteNames.tabRoute, (route) => false);
+                context,
+                RouteNames.setPinRoute,
+                (route) => false,
+              );
             }
           },
         ),
