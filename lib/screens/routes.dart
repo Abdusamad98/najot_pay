@@ -8,6 +8,8 @@ import 'package:najot_pay/screens/local_auth/method_two/touch_id_screen.dart';
 import 'package:najot_pay/screens/no_internet/no_internet_screen.dart';
 import 'package:najot_pay/screens/on_boarding/on_boarding_screen.dart';
 import 'package:najot_pay/screens/payment/payment_screen.dart';
+import 'package:najot_pay/screens/profile_edit/profile_edit_screen.dart';
+import 'package:najot_pay/screens/security/security_screen.dart';
 import 'package:najot_pay/screens/splash/splash_screen.dart';
 import 'package:najot_pay/screens/tab/tab_screen.dart';
 import 'package:najot_pay/screens/transfer/transfer_screen.dart';
@@ -43,6 +45,10 @@ class AppRoutes {
         return navigate(const EntryPinScreen());
       case RouteNames.touchIdRoute:
         return navigate(const TouchIdScreen());
+      case RouteNames.editProfileRoute:
+        return navigate(const ProfileEditScreen());
+      case RouteNames.securityRoute:
+        return navigate(const SecurityScreen());
       default:
         return navigate(
           const Scaffold(
@@ -72,4 +78,6 @@ class RouteNames {
   static const String confirmPinRoute = "/confirmPinRoute";
   static const String entryPinRoute = "/entryPinRoute";
   static const String touchIdRoute = "/touchIdRoute";
+  static const String editProfileRoute = "/edit_profile_route";
+  static const String securityRoute = "/security_route";
 }

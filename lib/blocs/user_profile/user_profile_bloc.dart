@@ -52,7 +52,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   _updateUser(UpdateUserEvent event, emit) async {
-    emit(state.copyWith(status: FormsStatus.loading));
+    emit(
+      state.copyWith(
+        status: FormsStatus.loading,
+        statusMessage: "",
+      ),
+    );
 
     NetworkResponse networkResponse =
         await userProfileRepository.updateUser(event.userModel);
@@ -60,9 +65,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     if (networkResponse.errorCode.isEmpty) {
       emit(
         state.copyWith(
-          status: FormsStatus.success,
-          userModel: event.userModel,
-        ),
+            status: FormsStatus.success,
+            userModel: event.userModel,
+            statusMessage: "profile_updated"),
       );
     } else {
       emit(

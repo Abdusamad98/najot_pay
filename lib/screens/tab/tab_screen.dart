@@ -6,7 +6,7 @@ import 'package:najot_pay/blocs/bottom/bottom_state.dart';
 import 'package:najot_pay/screens/tab/card/card_screen.dart';
 import 'package:najot_pay/screens/tab/history/history_screen.dart';
 import 'package:najot_pay/screens/tab/home/home_screen.dart';
-import 'package:najot_pay/screens/tab/profile/profile_screen.dart';
+import 'package:najot_pay/screens/tab/profile/profile_settings_screen.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -22,7 +22,7 @@ class _TabScreenState extends State<TabScreen> {
       const HomeScreen(),
       const CardScreen(),
       const HistoryScreen(),
-      const ProfileScreen(),
+      const ProfileSettingsScreen(),
     ];
     return Scaffold(
       body: BlocBuilder<BottomBloc, ChangeIndexState>(

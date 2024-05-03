@@ -13,6 +13,7 @@ class AppImages {
   static const String lockIcon = 'assets/icons/lock_icon.svg';
   static const String personIcon = 'assets/icons/person_icon.svg';
   static const String googleIcon = 'assets/icons/google_icon.svg';
+  static const String phone = 'assets/icons/phone.svg';
 //.jpg
 
 //.gif

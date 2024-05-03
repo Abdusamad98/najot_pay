@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 email:
                                     "${usernameController.text.toLowerCase()}@gmail.com",
                                 imageUrl: "",
-                                lastname: lastnameController.text,
+                                fullName: lastnameController.text,
                                 phoneNumber: phoneController.text.trim(),
                                 userId: "",
                                 username: usernameController.text,

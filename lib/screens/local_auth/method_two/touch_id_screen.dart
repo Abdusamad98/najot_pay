@@ -14,7 +14,7 @@ class _TouchIdScreenState extends State<TouchIdScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Set Pin Route"),
+        title: Text("Touch ID Route"),
       ),
       body: Column(
         children: [

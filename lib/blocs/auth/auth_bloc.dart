@@ -114,7 +114,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             password: "",
             email: userCredential.user!.email ?? "",
             imageUrl: userCredential.user!.photoURL ?? "",
-            lastname: userCredential.user!.displayName ?? "",
+            fullName: userCredential.user!.displayName ?? "",
             phoneNumber: userCredential.user!.phoneNumber ?? "",
             userId: "",
             username: userCredential.user!.displayName ?? "",

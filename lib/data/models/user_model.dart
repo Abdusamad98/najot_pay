@@ -1,6 +1,6 @@
 class UserModel {
   final String username;
-  final String lastname;
+  final String fullName;
   final String password;
   final String email;
   final String imageUrl;
@@ -13,7 +13,7 @@ class UserModel {
     required this.password,
     required this.email,
     required this.imageUrl,
-    required this.lastname,
+    required this.fullName,
     required this.phoneNumber,
     required this.userId,
     required this.username,
@@ -34,7 +34,7 @@ class UserModel {
   }) {
     return UserModel(
       userId: userId ?? this.userId,
-      lastname: lastname ?? this.lastname,
+      fullName: lastname ?? this.fullName,
       username: username ?? this.username,
       password: password ?? this.password,
       email: email ?? this.email,
@@ -47,7 +47,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() => {
         "userId": userId,
-        "lastname": lastname,
+        "lastname": fullName,
         "username": username,
         "email": email,
         "password": password,
@@ -59,7 +59,7 @@ class UserModel {
 
 
   Map<String, dynamic> toJsonForUpdate() => {
-    "lastname": lastname,
+    "lastname": fullName,
     "username": username,
     "email": email,
     "password": password,
@@ -74,7 +74,7 @@ class UserModel {
       password: json["password"] as String? ?? "",
       email: json["email"] as String? ?? "",
       imageUrl: json["imageUrl"] as String? ?? "",
-      lastname: json["lastname"] as String? ?? "",
+      fullName: json["lastname"] as String? ?? "",
       phoneNumber: json["phoneNumber"] as String? ?? "",
       userId: json["userId"] as String? ?? "",
       username: json["username"] as String? ?? "",
@@ -87,7 +87,7 @@ class UserModel {
         password: "",
         email: "",
         imageUrl: "",
-        lastname: "",
+        fullName: "",
         phoneNumber: "",
         userId: "",
         username: "",

@@ -44,10 +44,10 @@ class _TextFieldContainerState extends State<TextFieldContainer> {
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(15), boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          spreadRadius: 0,
+          color: Colors.grey.withOpacity(0.15),
+          spreadRadius: 15,
           blurRadius: 10,
-          offset: const Offset(0, 10),
+          offset: const Offset(10, 10),
         ),
       ]),
       // padding: EdgeInsets.symmetric(vertical: 5.w),
