@@ -41,7 +41,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       password: event.password,
     );
     if (networkResponse.errorText.isEmpty) {
-      emit(state.copyWith(status: FormsStatus.authenticated));
+
+      UserCredential userCredential = networkResponse.data as UserCredential;
+
+      UserModel userModel = state.userModel.copyWith(authUid: userCredential.user!.uid);
+
+      emit(state.copyWith(status: FormsStatus.authenticated,userModel: userModel));
     } else {
       emit(
         state.copyWith(

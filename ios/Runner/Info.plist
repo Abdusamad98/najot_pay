@@ -16,6 +16,8 @@
 	<string>najot_pay</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSFaceIDUsageDescription</key>
+    <string>For authenticating locally enable Biometrics</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

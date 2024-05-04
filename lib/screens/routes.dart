@@ -40,7 +40,8 @@ class AppRoutes {
       case RouteNames.setPinRoute:
         return navigate(const SetPinScreen());
       case RouteNames.confirmPinRoute:
-        return navigate(const ConfirmPinScreen());
+        return navigate(
+            ConfirmPinScreen(previousPin: settings.arguments as String));
       case RouteNames.entryPinRoute:
         return navigate(const EntryPinScreen());
       case RouteNames.touchIdRoute:

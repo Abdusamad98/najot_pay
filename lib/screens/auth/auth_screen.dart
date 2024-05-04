@@ -177,7 +177,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 BlocProvider.of<UserProfileBloc>(context).add(
                   AddUserEvent(state.userModel),
                 );
+              } else {
+                BlocProvider.of<UserProfileBloc>(context)
+                    .add(GetCurrentUserEvent(state.userModel.authUid));
               }
+
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 RouteNames.setPinRoute,

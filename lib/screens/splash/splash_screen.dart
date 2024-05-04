@@ -16,6 +16,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool hasPin = false;
+
   _init(bool isAuthenticated) async {
     await Future.delayed(const Duration(seconds: 2));
 
@@ -29,8 +31,15 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacementNamed(context, RouteNames.onBoardingRoute);
       }
     } else {
-      Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
+      Navigator.pushReplacementNamed(
+          context, hasPin ? RouteNames.entryPinRoute : RouteNames.setPinRoute);
     }
+  }
+
+  @override
+  void initState() {
+    hasPin = StorageRepository.getString(key: "pin_code").isNotEmpty;
+    super.initState();
   }
 
   @override
@@ -42,9 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == FormsStatus.authenticated) {
-            //TODO-5 Add UID to Event
             BlocProvider.of<UserProfileBloc>(context).add(
                 GetCurrentUserEvent(FirebaseAuth.instance.currentUser!.uid));
+
             _init(true);
           } else {
             _init(false);
