@@ -11,6 +11,7 @@ import 'package:najot_pay/screens/payment/payment_screen.dart';
 import 'package:najot_pay/screens/profile_edit/profile_edit_screen.dart';
 import 'package:najot_pay/screens/security/security_screen.dart';
 import 'package:najot_pay/screens/splash/splash_screen.dart';
+import 'package:najot_pay/screens/tab/card/add_card_screen.dart';
 import 'package:najot_pay/screens/tab/tab_screen.dart';
 import 'package:najot_pay/screens/transfer/transfer_screen.dart';
 
@@ -50,6 +51,8 @@ class AppRoutes {
         return navigate(const ProfileEditScreen());
       case RouteNames.securityRoute:
         return navigate(const SecurityScreen());
+      case RouteNames.addCardRoute:
+        return navigate(const AddCardScreen());
       default:
         return navigate(
           const Scaffold(
@@ -81,4 +84,5 @@ class RouteNames {
   static const String touchIdRoute = "/touchIdRoute";
   static const String editProfileRoute = "/edit_profile_route";
   static const String securityRoute = "/security_route";
+  static const String addCardRoute = "/add_card_route";
 }

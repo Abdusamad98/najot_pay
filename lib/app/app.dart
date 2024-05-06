@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:najot_pay/blocs/auth/auth_bloc.dart';
 import 'package:najot_pay/blocs/bottom/bottom_bloc.dart';
+import 'package:najot_pay/blocs/card/user_cards_bloc.dart';
+import 'package:najot_pay/blocs/card/user_cards_event.dart';
 import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/repositories/auth_repository.dart';
+import 'package:najot_pay/data/repositories/cards_repository.dart';
 import 'package:najot_pay/data/repositories/user_profile_repository.dart';
 import 'package:najot_pay/screens/routes.dart';
 import 'package:najot_pay/services/local_notification_service.dart';
@@ -27,6 +30,9 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (_) => UserProfileRepository(),
         ),
+        RepositoryProvider(
+          create: (_) => CardsRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -38,7 +44,12 @@ class App extends StatelessWidget {
           BlocProvider(create: (_) => BottomBloc()),
           BlocProvider(
               create: (context) =>
-                  UserProfileBloc(context.read<UserProfileRepository>()))
+                  UserProfileBloc(context.read<UserProfileRepository>())),
+          BlocProvider(
+            create: (context) => UserCardsBloc(
+              cardsRepository: context.read<CardsRepository>(),
+            )..add(GetCardsDatabaseEvent()),
+          )
         ],
         child: AdaptiveTheme(
           light: AppTheme.lightTheme,
