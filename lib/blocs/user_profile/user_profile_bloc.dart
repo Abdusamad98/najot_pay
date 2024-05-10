@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
 import 'package:najot_pay/data/models/network_response.dart';
@@ -135,6 +136,14 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           userModel: networkResponse.data as UserModel,
         ),
       );
+
+      String? token = await FirebaseMessaging.instance.getToken();
+
+      if (token != null) {
+        UserModel userModel = state.userModel;
+        userModel = userModel.copyWith(fcm: token);
+        add(UpdateUserEvent(userModel));
+      }
     } else {
       emit(
         state.copyWith(

@@ -36,6 +36,7 @@ dependencies:
   adaptive_theme: ^3.6.0
   pinput: ^4.0.0
   local_auth: ^2.2.0
+  mask_text_input_formatter: ^2.9.0
 
 
   my_utils:

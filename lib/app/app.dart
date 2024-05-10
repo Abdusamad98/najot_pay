@@ -5,6 +5,7 @@ import 'package:najot_pay/blocs/auth/auth_bloc.dart';
 import 'package:najot_pay/blocs/bottom/bottom_bloc.dart';
 import 'package:najot_pay/blocs/card/user_cards_bloc.dart';
 import 'package:najot_pay/blocs/card/user_cards_event.dart';
+import 'package:najot_pay/blocs/transaction/transaction_bloc.dart';
 import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/repositories/auth_repository.dart';
 import 'package:najot_pay/data/repositories/cards_repository.dart';
@@ -49,6 +50,11 @@ class App extends StatelessWidget {
             create: (context) => UserCardsBloc(
               cardsRepository: context.read<CardsRepository>(),
             )..add(GetCardsDatabaseEvent()),
+          ),
+          BlocProvider(
+            create: (context) => TransactionBloc(
+              cardsRepository: context.read<CardsRepository>(),
+            ),
           )
         ],
         child: AdaptiveTheme(

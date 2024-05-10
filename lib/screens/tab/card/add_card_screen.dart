@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:najot_pay/blocs/card/user_cards_bloc.dart';
 import 'package:najot_pay/blocs/card/user_cards_event.dart';
@@ -6,6 +7,8 @@ import 'package:najot_pay/blocs/card/user_cards_state.dart';
 import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/models/card_model.dart';
 import 'package:najot_pay/data/models/forms_status.dart';
+import 'package:najot_pay/screens/tab/card/widgets/card_number_input.dart';
+import 'package:najot_pay/screens/tab/card/widgets/expire_date_input.dart';
 import 'package:najot_pay/screens/widgets/my_custom_button.dart';
 import 'package:najot_pay/screens/widgets/text_container.dart';
 
@@ -17,10 +20,15 @@ class AddCardScreen extends StatefulWidget {
 }
 
 class _AddCardScreenState extends State<AddCardScreen> {
-
-
   final TextEditingController cardNumber = TextEditingController();
   final TextEditingController expireDate = TextEditingController();
+
+  final FocusNode cardFocusNode = FocusNode();
+  final FocusNode expireDateFocusNode = FocusNode();
+
+  final FocusNode focusNode1 = FocusNode();
+  final FocusNode focusNode2 = FocusNode();
+  final FocusNode focusNode3 = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +39,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                TextFieldContainer(
-                  hintText: "Card number",
-                  keyBoardType: TextInputType.number,
+                CardNumberInput(
                   controller: cardNumber,
+                  focusNode: cardFocusNode,
                 ),
-                TextFieldContainer(
-                  hintText: "Expire Date",
-                  keyBoardType: TextInputType.number,
+                ExpireDateInput(
+                  focusNode: expireDateFocusNode,
                   controller: expireDate,
                 ),
                 MyCustomButton(
@@ -48,8 +54,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
                     bool isExist = false;
 
+                    String cardText = cardNumber.text.replaceAll(" ", "");
+                    String expireText = expireDate.text;
+
                     for (var element in myCards) {
-                      if (element.cardNumber == cardNumber.text) {
+                      if (element.cardNumber == cardText) {
                         isExist = true;
                         break;
                       }
@@ -58,7 +67,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     CardModel? cardModel;
                     bool hasInDB = false;
                     for (var element in db) {
-                      if (element.cardNumber == cardNumber.text) {
+                      if (element.cardNumber == cardText) {
                         hasInDB = true;
                         cardModel = element;
                         break;
@@ -80,7 +89,30 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   },
                   title: "Add Card",
                   isLoading: state.status == FormsStatus.loading,
-                )
+                ),
+                TextField(
+                  focusNode: focusNode1,
+                  onChanged: (v) {
+                    if (v.length == 5) {
+                      focusNode1.nextFocus();
+                    }
+                  },
+                  textInputAction: TextInputAction.next,
+                ),
+                TextField(
+                  focusNode: focusNode2,
+                  onChanged: (v) {
+                    if (v.length == 10) {
+                      focusNode2.nextFocus();
+                    }
+                  },
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                ),
+                TextField(
+                  focusNode: focusNode3,
+                  textInputAction: TextInputAction.done,
+                ),
               ],
             ),
           );
