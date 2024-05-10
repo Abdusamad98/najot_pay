@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:najot_pay/blocs/base/base_state.dart';
 import 'package:najot_pay/data/models/card_model.dart';
@@ -27,6 +28,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<SetSenderCardEvent>(_setSenderCard);
     on<CheckValidationEvent>(_checkValidation);
     on<RunTransactionEvent>(_runTransaction);
+    on<SetInitialEvent>(_setInitial);
   }
 
   final CardsRepository cardsRepository;
@@ -44,6 +46,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   }
 
   _checkValidation(CheckValidationEvent event, emit) {
+
+    debugPrint("RECEIVER CARD : ${state.receiverCard.cardNumber}");
+    debugPrint("SENDER CARD : ${state.senderCard.cardNumber}");
+    debugPrint("AMOUNT : ${state.amount}");
+
     if (state.amount < 1000 ||
         state.receiverCard.cardNumber.length != 16 ||
         state.senderCard.balance < 1000 ||
@@ -52,6 +59,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       return;
     }
     emit(state.copyWith(statusMessage: "validated"));
+    add(RunTransactionEvent());
   }
 
   _runTransaction(RunTransactionEvent event, emit) async {
@@ -83,5 +91,18 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     } else {
       return false;
     }
+  }
+
+  _setInitial(SetInitialEvent event, emit) {
+    emit(
+      TransactionState(
+        status: FormsStatus.pure,
+        errorMessage: "",
+        statusMessage: "",
+        receiverCard: CardModel.initial(),
+        senderCard: CardModel.initial(),
+        amount: 0.0,
+      ),
+    );
   }
 }

@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:najot_pay/blocs/bottom/bottom_bloc.dart';
 import 'package:najot_pay/blocs/bottom/bottom_event.dart';
 import 'package:najot_pay/blocs/bottom/bottom_state.dart';
+import 'package:najot_pay/blocs/transaction/transaction_bloc.dart';
+import 'package:najot_pay/screens/routes.dart';
 import 'package:najot_pay/screens/tab/card/card_screen.dart';
 import 'package:najot_pay/screens/tab/history/history_screen.dart';
 import 'package:najot_pay/screens/tab/home/home_screen.dart';
 import 'package:najot_pay/screens/tab/profile/profile_settings_screen.dart';
+import 'package:najot_pay/utils/colors/app_colors.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -31,6 +34,15 @@ class _TabScreenState extends State<TabScreen> {
             index: state.index,
             children: screens,
           );
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.c_1317DD,
+        child: const Icon(Icons.currency_exchange),
+        onPressed: () {
+          context.read<TransactionBloc>().add(SetInitialEvent());
+          Navigator.pushNamed(context, RouteNames.transferRoute);
         },
       ),
       bottomNavigationBar: BlocBuilder<BottomBloc, ChangeIndexState>(

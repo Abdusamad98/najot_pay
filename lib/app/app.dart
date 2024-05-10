@@ -49,7 +49,9 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => UserCardsBloc(
               cardsRepository: context.read<CardsRepository>(),
-            )..add(GetCardsDatabaseEvent()),
+            )
+              ..add(GetCardsDatabaseEvent())
+              ..add(GetActiveCards()),
           ),
           BlocProvider(
             create: (context) => TransactionBloc(

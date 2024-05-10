@@ -6,6 +6,7 @@ import '../../data/models/card_model.dart';
 class UserCardsState extends Equatable {
   final List<CardModel> userCards;
   final List<CardModel> cardsDB;
+  final List<CardModel> activeCards;
   final FormsStatus status;
   final String errorMessage;
   final String statusMessage;
@@ -16,11 +17,13 @@ class UserCardsState extends Equatable {
     required this.errorMessage,
     required this.statusMessage,
     required this.cardsDB,
+    required this.activeCards,
   });
 
   UserCardsState copyWith({
     List<CardModel>? userCards,
     List<CardModel>? cardsDB,
+    List<CardModel>? activeCards,
     FormsStatus? status,
     String? errorMessage,
     String? statusMessage,
@@ -31,6 +34,7 @@ class UserCardsState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       statusMessage: statusMessage ?? this.statusMessage,
       cardsDB: cardsDB ?? this.cardsDB,
+      activeCards: activeCards ?? this.activeCards,
     );
   }
 
@@ -41,5 +45,6 @@ class UserCardsState extends Equatable {
         errorMessage,
         statusMessage,
         cardsDB,
+        activeCards,
       ];
 }

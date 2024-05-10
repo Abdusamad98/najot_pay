@@ -147,7 +147,7 @@ class AppTheme {
       outlineVariant: Color(0xFFC5C6D0),
       scrim: Color(0xFF000000),
     ),
-    useMaterial3: true,
+    useMaterial3: false,
   );
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,

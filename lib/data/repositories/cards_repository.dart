@@ -63,4 +63,10 @@ class CardsRepository {
       .snapshots()
       .map((event) =>
           event.docs.map((doc) => CardModel.fromJson(doc.data())).toList());
+
+  Stream<List<CardModel>> getActiveCards() => FirebaseFirestore.instance
+      .collection(AppConstants.cards)
+      .snapshots()
+      .map((event) =>
+          event.docs.map((doc) => CardModel.fromJson(doc.data())).toList());
 }

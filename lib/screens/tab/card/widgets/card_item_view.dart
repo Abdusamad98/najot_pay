@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:my_utils/my_utils.dart';
 import 'package:najot_pay/data/models/card_model.dart';
@@ -12,10 +13,12 @@ class CardItemView extends StatelessWidget {
     super.key,
     required this.cardModel,
     this.onTap,
+    this.chipVisibility = true,
   });
 
   final CardModel cardModel;
   final VoidCallback? onTap;
+  final bool chipVisibility;
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +42,38 @@ class CardItemView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              cardModel.bank,
-              style: AppTextStyle.interSemiBold.copyWith(
-                fontSize: 18,
-                color: Colors.white,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  cardModel.bank,
+                  style: AppTextStyle.interSemiBold.copyWith(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  NumberFormat.currency(locale: "uz").format(cardModel.balance),
+                  style: AppTextStyle.interSemiBold.copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 24.h),
-            Image.asset(
-              AppImages.chip,
-              width: 56.w,
-              height: 56.w,
-              fit: BoxFit.fill,
+            Visibility(
+              visible: chipVisibility,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 16.h),
+                child: Image.asset(
+                  AppImages.chip,
+                  width: 56.w,
+                  height: 56.w,
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-            SizedBox(height: 16.h),
             Row(
               children: [
                 Expanded(
