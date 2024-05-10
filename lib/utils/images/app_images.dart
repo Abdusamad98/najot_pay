@@ -6,6 +6,10 @@ class AppImages {
   static const String boardingImage3 = "assets/images/boarding_image3.png";
   static const String boardingImage4 = "assets/images/boarding_image4.png";
   static const String loginImage = "assets/images/login_image.png";
+  static const String uzCard = "assets/images/uzcard.png";
+  static const String humo = "assets/images/humo.png";
+  static const String visa = "assets/images/visa.png";
+  static const String chip = "assets/images/chip.png";
 
   //.svg
   static const String delete = "assets/icons/delete.svg";

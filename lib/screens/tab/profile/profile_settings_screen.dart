@@ -17,19 +17,23 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
-  //TODO-2 UserProfileBloc ichidagi userni get qilishni bu yerdan olib tashlaymiz.
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text(
+          "Profile",
+          style: AppTextStyle.interSemiBold.copyWith(color: Colors.white),
+        ),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, RouteNames.editProfileRoute);
             },
-            icon: const Icon(Icons.edit),
+            icon: const Icon(
+              Icons.edit,
+              color: Colors.white,
+            ),
           )
         ],
       ),

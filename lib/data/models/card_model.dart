@@ -106,7 +106,7 @@ class CardModel {
         type: -1,
         bank: "",
         cardId: "",
-        color: "",
+        color: "000000",
         isMain: false,
       );
 }

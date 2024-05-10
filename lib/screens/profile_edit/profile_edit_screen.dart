@@ -41,7 +41,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          "Profilni yangilash",
+          style: AppTextStyle.interSemiBold.copyWith(color: Colors.white),
+        ),
+      ),
       body: BlocConsumer<UserProfileBloc, UserProfileState>(
         listener: (context, state) {
           if (state.statusMessage == "profile_updated") {

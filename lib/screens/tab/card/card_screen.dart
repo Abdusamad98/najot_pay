@@ -6,6 +6,8 @@ import 'package:najot_pay/blocs/card/user_cards_state.dart';
 import 'package:najot_pay/blocs/user_profile/user_profile_bloc.dart';
 import 'package:najot_pay/data/models/card_model.dart';
 import 'package:najot_pay/screens/routes.dart';
+import 'package:najot_pay/screens/tab/card/widgets/card_item_view.dart';
+import 'package:najot_pay/utils/styles/app_text_style.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -26,13 +28,19 @@ class _CardScreenState extends State<CardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Cards"),
+        title: Text(
+          "My Cards",
+          style: AppTextStyle.interSemiBold.copyWith(color: Colors.white),
+        ),
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, RouteNames.addCardRoute);
               },
-              icon: const Icon(Icons.add))
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ))
         ],
       ),
       body: BlocBuilder<UserCardsBloc, UserCardsState>(
@@ -40,11 +48,7 @@ class _CardScreenState extends State<CardScreen> {
           return ListView(
             children: List.generate(state.userCards.length, (index) {
               CardModel cardModel = state.userCards[index];
-              return Container(
-                height: 100,
-                decoration: BoxDecoration(
-                    color: Color(int.parse("0xff${cardModel.color}"))),
-              );
+              return CardItemView(cardModel: cardModel);
             }),
           );
         },
